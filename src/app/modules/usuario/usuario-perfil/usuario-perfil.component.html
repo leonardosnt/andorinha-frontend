@@ -1,0 +1,41 @@
+<div class="container-fluid profile-container">
+  <div class="user-profile">
+    <div class="row" *ngIf="this.usuario; else carregandoUsuario">
+
+      <div class="col-sm-12">
+        <div class="card hovercard text-left">
+          <div class="user-image">
+            <div class="avatar">
+              <img alt="Avatar" src="https://api.adorable.io/avatars/285/ola-mundo.png">
+            </div>
+          </div>
+
+          <div class="info">
+            <div class="row">
+              <div class="col-sm-12 col-lg-4 order-sm-0 order-xl-1">
+                <div class="user-designation">
+                  <div class="title">
+                    <a href="usuario/{{usuario.id}}">{{usuario.nome}}</a>
+                  </div>
+                  <div class="desc mt-2">Descrição :D</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TODO: Mostrar textarea para tweetar caso o usuário que esteja visualizando seja o mesmo do perfil? -->
+
+      <div class="col-sm-12">
+        <tweet-card *ngFor="let tweet of tweets" [tweet]="tweet"></tweet-card>
+      </div>
+
+    </div>
+
+    <ng-template #carregandoUsuario>
+      <!-- TODO: usar um spinner -->
+      <div class="row">Carregando...</div>
+    </ng-template>
+  </div>
+</div>
