@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="profile-img-style">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="media">
+          <img class="img-thumbnail rounded-circle mr-3" src="https://api.adorable.io/avatars/285/ola-mundo.png"
+            alt="Avatar">
+          <div class="media-body align-self-center">
+            <h5 class="mt-0 user-name">{{tweet.usuario.nome}}</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 align-self-center">
+        <div class="float-sm-right">
+          <small>{{tweet.data | date:'fullDate'}}</small>
+        </div>
+      </div>
+    </div>
+    <hr>
+
+    <p>{{tweet.conteudo}}</p>
+
+    <div class="like-comment mt-4">
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <label class="m-0">
+            <a href="javascript:void(0)"><i class="fa fa-comment"></i>&nbsp;&nbsp;Comentar</a>
+          </label>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
