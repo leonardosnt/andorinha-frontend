@@ -4,7 +4,7 @@ import { Tweet } from 'src/app/shared/models/tweet';
 import { Usuario } from 'src/app/shared/models/usuario';
 import { Comentario } from 'src/app/shared/models/Comentario';
 import { Observable, of } from 'rxjs';
-import { TweetService } from 'src/app/shared/services/tweet.service';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
   selector: 'app-tweet-detalhe',
@@ -16,14 +16,14 @@ export class TweetDetalheComponent implements OnInit {
   private tweet: Tweet;
   private comentarios: Comentario[];
 
-  constructor(private route: ActivatedRoute, private service: TweetService) {}
+  constructor(private route: ActivatedRoute, private api: ApiService) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       // TODO: validar
       const id = Number(params.get('id'));
 
-      this.service.consultar(id)
+      this.api.tweet().consultar(id)
         .subscribe(tweet => this.tweet = tweet);
 
       this.buscarComentarios()
