@@ -4,6 +4,8 @@ import { HomePageComponent } from './modules/home/home-page/home-page.component'
 import { SampleComponent } from './components/sample/sample-component/sample-component';
 import { UsuarioListaComponent } from './modules/usuario/usuario-lista/usuario-lista.component';
 import { UsuarioDetalheComponent } from './modules/usuario/usuario-detalhe/usuario-detalhe.component';
+import { UsuarioPerfilComponent } from './modules/usuario/usuario-perfil/usuario-perfil.component';
+import { TweetDetalheComponent } from './modules/tweet/tweet-detalhe/tweet-detalhe.component';
 
 const routes: Routes = [
   {
@@ -22,6 +24,14 @@ const routes: Routes = [
   {
     path: 'usuario-detalhe',
     component: UsuarioDetalheComponent
+  },
+  {
+    path: 'usuario/:id',
+    component: UsuarioPerfilComponent
+  },
+  {
+    path: 'tweet/:id',
+    component: TweetDetalheComponent
   }
 ];
 
