@@ -7,31 +7,37 @@ import {UsuarioSeletor} from '../models/seletor/usuario.seletor';
 
 const USUARIOS = [
   {
+    id: 1,
     nome: 'Romário',
     idade: 46,
     dataNascimento: new Date()
   },
   {
+    id: 2,
     nome: 'Bebeto',
     idade: 47,
     dataNascimento: new Date()
   },
   {
+    id: 3,
     nome: 'Ronaldo',
     idade: 48,
     dataNascimento: new Date()
   },
   {
+    id: 4,
     nome: 'Raí',
     idade: 19,
     dataNascimento: new Date()
   },
   {
+    id: 5,
     nome: 'Zico',
     idade: 50,
     dataNascimento: new Date()
   },
   {
+    id: 6,
     nome: 'Menino Ney',
     idade: 20,
     dataNascimento: new Date()
