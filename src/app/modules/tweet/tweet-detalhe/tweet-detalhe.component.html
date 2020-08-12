@@ -1,5 +1,14 @@
 <div class="container-fluid pt-2">
-  <div class="user-profile">
+  <div class="user-profile" *ngIf="this.tweet === undefined">
+    <div>Carregando...</div>
+  </div>
+
+  <!-- TODO: deve ter uma maneira mais elegante de fazer isso... -->
+  <div class="user-profile" *ngIf="this.tweet === null">
+    <div>Tweet não encontrado.</div>
+  </div>
+
+  <div class="user-profile" *ngIf="this.tweet">
     <tweet-card [tweet]="this.tweet"></tweet-card>
 
     <div class="row">
