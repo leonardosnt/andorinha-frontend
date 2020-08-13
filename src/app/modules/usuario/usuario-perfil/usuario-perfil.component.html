@@ -33,6 +33,10 @@
 
       <div class="col-sm-12 ml-2 mb-3">
         <h5>Tweets</h5>
+
+        <span *ngIf="this.tweets && this.tweets.length === 0">
+          {{usuario.nome}} ainda não possui nenhum Tweet.
+        </span>
       </div>
 
       <div class="col-sm-12">
