@@ -3,6 +3,7 @@ import { Usuario } from '../models/usuario';
 import { Resultado } from '../models/util/resultado';
 import { Observable, of } from 'rxjs';
 import {UsuarioSeletor} from '../models/seletor/usuario.seletor';
+import { HttpClient } from '@angular/common/http';
 
 
 const USUARIOS = [
@@ -50,7 +51,14 @@ const USUARIOS = [
 })
 export class UsuarioService {
 
-  constructor() { }
+  // TODO: config
+  private apiUrl = 'http://localhost/andorinha-backend/api';
+
+  constructor(private http: HttpClient) { }
+
+  public consultar(id: number):  Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiUrl}/usuario/${id}`);
+  }
 
   pesquisar(seletor: UsuarioSeletor): Observable<Resultado<Usuario>> {
     return of( new Resultado<Usuario>().of(this.paginar( USUARIOS, seletor.limite, seletor.pagina ), USUARIOS.length) );
