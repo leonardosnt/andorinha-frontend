@@ -4,6 +4,7 @@ import { Resultado } from '../models/util/resultado';
 import { Observable, of } from 'rxjs';
 import {UsuarioSeletor} from '../models/seletor/usuario.seletor';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 const USUARIOS = [
@@ -51,13 +52,10 @@ const USUARIOS = [
 })
 export class UsuarioService {
 
-  // TODO: config
-  private apiUrl = 'http://localhost/andorinha-backend/api';
-
   constructor(private http: HttpClient) { }
 
   public consultar(id: number):  Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiUrl}/usuario/${id}`);
+    return this.http.get<Usuario>(`${environment.apiUrl}/usuario/${id}`);
   }
 
   pesquisar(seletor: UsuarioSeletor): Observable<Resultado<Usuario>> {
