@@ -13,11 +13,23 @@
 
     <div class="row">
       <div class="col-sm-12 ml-2 mb-3">
-        <h5>Comentários</h5>
+        <h5>
+          <span *ngIf="this.comentarios === undefined">
+            Carregando comentários...
+          </span>
+
+          <span *ngIf="this.comentarios && this.comentarios.length > 0">
+            {{this.comentarios.length}} comentários
+          </span>
+
+          <span *ngIf="this.comentarios && this.comentarios.length == 0">
+            Não há comentários neste tweet.
+          </span>
+        </h5>
       </div>
 
       <div class="col-sm-12">
-        <div class="card" *ngFor="let comentario of comentarios">
+        <div class="card" *ngFor="let comentario of this.comentarios">
           <div class="profile-img-style">
             <div class="row">
               <div class="col-sm-8">
@@ -25,7 +37,7 @@
                   <img class="img-thumbnail rounded-circle mr-3" src="https://api.adorable.io/avatars/285/ola-mundo.png"
                     alt="Avatar">
                   <div class="media-body align-self-center">
-                    <h5 class="mt-0 user-name">{{comentario.usuario.nome}}</h5>
+                    <a class="mt-0 user-name" [routerLink]="'/usuario/' + comentario.usuario.id">{{comentario.usuario.nome}}</a>
                   </div>
                 </div>
               </div>
