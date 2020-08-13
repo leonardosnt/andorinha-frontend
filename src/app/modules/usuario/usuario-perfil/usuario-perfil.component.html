@@ -27,6 +27,10 @@
 
       <!-- TODO: Mostrar textarea para tweetar caso o usuário que esteja visualizando seja o mesmo do perfil? -->
 
+      <div class="col-sm-12 ml-2 mb-3">
+        <h5>Tweets</h5>
+      </div>
+
       <div class="col-sm-12">
         <tweet-card *ngFor="let tweet of tweets" [tweet]="tweet"></tweet-card>
       </div>
