@@ -38,7 +38,7 @@ export class NavService {
 
   MENUITEMS: Menu[] = [
     {
-      title: 'Home', path: '/home', icon: 'anchor', type: 'link', badgeType: 'primary',  badgeValue: 'new',  active: true
+      title: 'Home', path: '/home', icon: 'anchor', type: 'link', badgeType: 'primary',
     },
     {
       title: 'Listagem de usuários', path: '/usuario-lista', icon: 'anchor', type: 'link', badgeType: 'primary'
