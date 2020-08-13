@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Usuario } from 'src/app/shared/models/usuario';
 import { Tweet } from 'src/app/shared/models/tweet';
+import { ApiService } from 'src/app/shared/services/api.service';
+import { TweetSeletor } from 'src/app/shared/models/seletor/tweet.seletor';
 
 @Component({
   selector: 'app-usuario-perfil',
@@ -13,33 +15,19 @@ export class UsuarioPerfilComponent implements OnInit {
   private usuario: Usuario;
   private tweets: Tweet[]; // TODO: paginação
 
-  constructor(private route: ActivatedRoute) {
-  }
+  constructor(private route: ActivatedRoute, private api: ApiService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
         // TODO: validar
         const id = Number(params.get('id'));
 
-        // TODO: buscar
-        const usuario = new Usuario();
-        usuario.id = id;
-        usuario.nome = "Leonardo";
+        this.api.usuario()
+          .consultar(id).subscribe(usuario => this.usuario = usuario);
 
-        const tweets = [];
-
-        for (let i = 0; i < 5; i++) {
-          const tweet = new Tweet();
-          tweet.usuario = usuario;
-          tweet.conteudo = "Hello World ";
-          tweet.data = new Date();
-          tweet.id = i;
-
-          tweets.push(tweet);
-        }
-
-        this.tweets = tweets;
-        this.usuario = usuario;
+        this.api.tweet()
+          .pesquisar(<TweetSeletor>{ idUsuario: id })
+          .subscribe(tweets => this.tweets = tweets);
       });
   }
 

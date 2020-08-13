@@ -1,7 +1,11 @@
-<div class="container-fluid profile-container">
+<div class="container-fluid pt-2">
   <div class="user-profile">
-    <div class="row" *ngIf="this.usuario; else carregandoUsuario">
+    <div class="row">
+      <span *ngIf="this.usuario === undefined;">Carregando</span>
+      <span *ngIf="this.usuario === null;">Usuário não encontrado</span>
+    </div>
 
+    <div class="row profile-container" *ngIf="this.usuario;">
       <div class="col-sm-12">
         <div class="card hovercard text-left">
           <div class="user-image">
@@ -36,10 +40,5 @@
       </div>
 
     </div>
-
-    <ng-template #carregandoUsuario>
-      <!-- TODO: usar um spinner -->
-      <div class="row">Carregando...</div>
-    </ng-template>
   </div>
 </div>
