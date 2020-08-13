@@ -6,7 +6,7 @@
           <img class="img-thumbnail rounded-circle mr-3" src="https://api.adorable.io/avatars/285/ola-mundo.png"
             alt="Avatar">
           <div class="media-body align-self-center">
-            <h5 class="mt-0 user-name">{{tweet.usuario.nome}}</h5>
+            <a class="mt-0 user-name" [routerLink]="'/usuario/' + tweet.usuario.id">{{tweet.usuario.nome}}</a>
           </div>
         </div>
       </div>
