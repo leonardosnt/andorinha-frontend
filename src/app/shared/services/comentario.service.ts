@@ -20,4 +20,8 @@ export class ComentarioService {
     return this.http.post<Comentario[]>(`${environment.apiUrl}/comentario/pesquisar`, seletor);
   }
 
+  public inserir(comentario: Comentario): Observable<Comentario> {
+    return this.http.post<Comentario>(`${environment.apiUrl}/comentario`, comentario);
+  }
+
 }

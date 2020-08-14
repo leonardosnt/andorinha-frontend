@@ -54,6 +54,11 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
+  public usuarioAtual(): Observable<Usuario> {
+    // TODO: usuário hard-coded
+    return of(<Usuario> { id: 1, nome: "Leonardo" })
+  }
+
   public consultar(id: number):  Observable<Usuario> {
     return this.http.get<Usuario>(`${environment.apiUrl}/usuario/${id}`);
   }

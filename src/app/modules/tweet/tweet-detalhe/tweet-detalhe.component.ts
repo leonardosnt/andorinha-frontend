@@ -34,22 +34,8 @@ export class TweetDetalheComponent implements OnInit {
     });
   }
 
-  adicionarComentario(conteudo: string) {
-    // TODO:
-    // - pegar usuario atual
-    // - usar api para postar o comentário
-    // - scrollar até o comentário?
-
-    const usuario = new Usuario();
-    usuario.id = 1;
-    usuario.nome = "Leonardo";
-
-    const comentario = new Comentario();
-    comentario.usuario = usuario;
-    comentario.conteudo = conteudo;
-    comentario.tweet = this.tweet;
-    comentario.id = 5;
-
+  onComentarioAdicionado(comentario: Comentario) {
+    // TODO: scrollar até o comentário
     this.comentarios.unshift(comentario);
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output
 import { Tweet } from '../../models/tweet';
 import { Comentario } from '../../models/comentario';
 import { Form, NgForm } from '@angular/forms';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'tweet-card',
@@ -18,10 +19,10 @@ export class TweetCardComponent implements OnInit {
   private inputComentarAtivo: boolean = false;
 
   @Output()
-  private comentarioAdicionado: EventEmitter<string>;
+  private comentarioAdicionado: EventEmitter<Comentario>;
 
-  constructor() {
-    this.comentarioAdicionado = new EventEmitter<string>();
+  constructor(private api: ApiService) {
+    this.comentarioAdicionado = new EventEmitter<Comentario>();
   }
 
   ngOnInit() {
@@ -30,8 +31,22 @@ export class TweetCardComponent implements OnInit {
   onAdicionarComentario(ngForm: NgForm) {
     const {conteudo} = ngForm.form.value;
 
-    this.comentarioAdicionado.emit(conteudo);
+    // TODO: loader - algo para indicar que o comentário "está sendo adicionado"
+    // caso a request demore mais do que o esperado.
+    this.api.usuario().usuarioAtual().subscribe(usuario => {
+      const comentario = new Comentario();
+      comentario.tweet = this.tweet;
+      comentario.usuario = usuario;
+      comentario.conteudo = conteudo;
 
+      this.api.comentario().inserir(comentario).subscribe((c) => {
+        comentario.id = c.id;
+
+        this.comentarioAdicionado.emit(comentario);
+      })
+    });
+
+    // TODO: resetar apenas se o comentário foi adicionad?
     ngForm.reset();
   }
 }

@@ -9,7 +9,7 @@
   </div>
 
   <div class="user-profile" *ngIf="this.tweet">
-    <tweet-card [tweet]="this.tweet" [inputComentarAtivo]="true" (comentarioAdicionado)="this.adicionarComentario($event)"></tweet-card>
+    <tweet-card [tweet]="this.tweet" [inputComentarAtivo]="true" (comentarioAdicionado)="this.onComentarioAdicionado($event)"></tweet-card>
 
     <div class="row">
       <div class="col-sm-12 ml-2 mb-3">
