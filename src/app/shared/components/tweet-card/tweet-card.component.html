@@ -6,7 +6,7 @@
           <img class="img-thumbnail rounded-circle mr-3" src="https://api.adorable.io/avatars/285/ola-mundo.png"
             alt="Avatar">
           <div class="media-body align-self-center">
-            <a class="mt-0 user-name" [routerLink]="'/usuario/' + tweet.usuario.id">{{tweet.usuario.nome}}</a>
+            <a class="mt-0 user-name" [routerLink]="['/usuario/', tweet.usuario.id]">{{tweet.usuario.nome}}</a>
           </div>
         </div>
       </div>
@@ -21,15 +21,25 @@
 
     <p>{{tweet.conteudo}}</p>
 
-    <div class="like-comment mt-4">
-      <ul class="list-inline">
-        <li class="list-inline-item">
-          <label class="m-0">
-            <a href="javascript:void(0)"><i class="fa fa-comment"></i>&nbsp;&nbsp;Comentar</a>
-          </label>
-        </li>
-      </ul>
+    <hr>
 
+    <div class="mt-4">
+      <!-- TODO: Por agora, o input de comentar só é o mostrado na página de tweet. -->
+      <form *ngIf="this.inputComentarAtivo; else comentar" #form="ngForm" (ngSubmit)="this.onAdicionarComentario(form)">
+        <textarea class="form-control" name="conteudo" placeholder="Escreva seu comentário" rows="4" ngModel>
+
+        </textarea>
+
+        <div class="mt-3 float-right">
+          <button type="submit" class="btn btn-primary">Comentar</button>
+        </div>
+      </form>
+
+      <ng-template #comentar>
+        <label class="m-0">
+          <a [routerLink]="['/tweet/', tweet.id]"><i class="fa fa-external-link"></i>&nbsp;&nbsp;Comentar</a>
+        </label>
+      </ng-template>
     </div>
   </div>
 </div>

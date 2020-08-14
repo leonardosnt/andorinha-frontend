@@ -1,5 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 import { Tweet } from '../../models/tweet';
+import { Comentario } from '../../models/comentario';
+import { Form, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'tweet-card',
@@ -12,9 +14,24 @@ export class TweetCardComponent implements OnInit {
   @Input()
   private tweet: Tweet;
 
-  constructor() { }
+  @Input()
+  private inputComentarAtivo: boolean = false;
+
+  @Output()
+  private comentarioAdicionado: EventEmitter<string>;
+
+  constructor() {
+    this.comentarioAdicionado = new EventEmitter<string>();
+  }
 
   ngOnInit() {
   }
 
+  onAdicionarComentario(ngForm: NgForm) {
+    const {conteudo} = ngForm.form.value;
+
+    this.comentarioAdicionado.emit(conteudo);
+
+    ngForm.reset();
+  }
 }
