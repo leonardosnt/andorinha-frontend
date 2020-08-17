@@ -9,12 +9,12 @@ import {CustomizerService} from './shared/services/customizer.service';
 export class AppComponent implements OnInit {
 
   public title = 'universal-starterkit';
-  public toggle;
+  public toggle: boolean;
+  public openToggle: boolean;
 
   constructor(public customize: CustomizerService) { }
-  openToggle: boolean;
 
-  receiveToggle($event) {
+  receiveToggle($event: boolean) {
     this.openToggle = $event;
     this.toggle = this.openToggle;
   }
