@@ -26,7 +26,7 @@ export class UsuarioPerfilComponent implements OnInit {
           .consultar(id).subscribe(usuario => this.usuario = usuario);
 
         this.api.tweet()
-          .pesquisar(<TweetSeletor>{ idUsuario: id })
+          .pesquisar(<TweetSeletor>{ idUsuario: id, orderField: 'data', orderType: 'desc' })
           .subscribe(tweets => this.tweets = tweets);
       });
   }
