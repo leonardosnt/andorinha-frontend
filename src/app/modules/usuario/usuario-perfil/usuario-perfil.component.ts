@@ -12,8 +12,8 @@ import { TweetSeletor } from 'src/app/shared/models/seletor/tweet.seletor';
 })
 export class UsuarioPerfilComponent implements OnInit {
 
-  private usuario: Usuario;
-  private tweets: Tweet[]; // TODO: paginação
+  usuario: Usuario;
+  tweets: Tweet[]; // TODO: paginação
 
   constructor(private route: ActivatedRoute, private api: ApiService) { }
 

@@ -13,9 +13,9 @@ import { Router } from '@angular/router';
 })
 export class HomePageComponent implements OnInit {
 
-  private usuarioAtual: Usuario;
+  usuarioAtual: Usuario;
 
-  private publicandoTweet: Boolean;
+  publicandoTweet: Boolean;
 
   constructor(private api: ApiService, private toastrService: ToastrService, private router: Router) { }
 
@@ -24,8 +24,6 @@ export class HomePageComponent implements OnInit {
   }
 
   onAdicionarTweet(ngForm: NgForm) {
-    const {conteudo} = ngForm.form.value;
-
     const onSuccess = (tweet: Tweet) => {
       // Por algum motivo o onComplete não está sendo invocado, então tive que atualizar
       // o valor do publicandoTweet aqui e no onError.
@@ -49,7 +47,7 @@ export class HomePageComponent implements OnInit {
     };
 
     const tweet = new Tweet();
-    tweet.conteudo = conteudo;
+    tweet.conteudo = ngForm.form.value.conteudo;
     tweet.usuario = this.usuarioAtual;
 
     this.publicandoTweet = true;
