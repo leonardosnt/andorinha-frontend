@@ -20,4 +20,7 @@ export class TweetService {
     return this.http.post<Tweet[]>(`${environment.apiUrl}/tweet/pesquisar`, seletor);
   }
 
+  public inserir(tweet: Tweet): Observable<Tweet> {
+    return this.http.post<Tweet>(`${environment.apiUrl}/tweet`, tweet);
+  }
 }
