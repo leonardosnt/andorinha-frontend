@@ -28,7 +28,10 @@ export class TweetDetalheComponent implements OnInit {
 
       const seletor = new ComentarioSeletor();
       seletor.idTweet = id;
+      seletor.orderField = 'data';
+      seletor.orderType = 'desc';
 
+      // TODO: usar DTO
       this.api.comentario().pesquisar(seletor)
         .subscribe(comentarios => this.comentarios = comentarios);
     });
