@@ -11,6 +11,8 @@ import { SampleModule } from './components/sample/sample.module';
 import { TweetModule } from './modules/tweet/tweet.module';
 import { registerLocaleData } from '@angular/common';
 import localePtbr from '@angular/common/locales/pt';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 registerLocaleData(localePtbr);
 
@@ -26,7 +28,9 @@ registerLocaleData(localePtbr);
     HomeModule,
     UsuarioModule,
     SampleModule,
-    TweetModule
+    TweetModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [HttpClient, { provide: LOCALE_ID, useValue: 'pt-BR' }],
   bootstrap: [AppComponent]
