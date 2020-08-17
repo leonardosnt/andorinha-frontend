@@ -1,6 +1,8 @@
-import { Component,ViewEncapsulation } from '@angular/core';
+import { Component,ViewEncapsulation, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { NavService, Menu } from '../../services/nav.service';
+import { Usuario } from '../../models/usuario';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,17 +10,23 @@ import { NavService, Menu } from '../../services/nav.service';
   styleUrls: ['./sidebar.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
 
   public menuItems: Menu[];
   public url: any;
   public fileurl: any;
 
-  constructor(private router: Router, public navServices: NavService) {
+  private usuarioAtual: Usuario;
+
+  constructor(private router: Router, public navServices: NavService, private api: ApiService) {
     this.navServices.items.subscribe(menuItems => {
       this.menuItems = menuItems
-    
+
     })
+  }
+
+  ngOnInit() {
+    this.api.usuario().usuarioAtual().subscribe(usuario => this.usuarioAtual = usuario);
   }
 
   // Active Nave state
