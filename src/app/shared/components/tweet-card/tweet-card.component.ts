@@ -1,52 +1,64 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output, NgZone, ChangeDetectorRef } from '@angular/core';
 import { Tweet } from '../../models/tweet';
 import { Comentario } from '../../models/comentario';
 import { Form, NgForm } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
+import { Usuario } from '../../models/usuario';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'tweet-card',
   templateUrl: './tweet-card.component.html',
-  styleUrls: ['./tweet-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./tweet-card.component.scss']
 })
 export class TweetCardComponent implements OnInit {
 
   @Input()
-  private tweet: Tweet;
+  tweet: Tweet;
 
   @Input()
-  private inputComentarAtivo: boolean = false;
+  inputComentarAtivo: boolean = false;
 
   @Output()
-  private comentarioAdicionado: EventEmitter<Comentario>;
+  comentarioAdicionado: EventEmitter<Comentario>;
 
-  constructor(private api: ApiService) {
+  usuarioAtual: Usuario;
+
+  publicandoComentario: Boolean;
+
+  constructor(private api: ApiService, private toastrService: ToastrService) {
     this.comentarioAdicionado = new EventEmitter<Comentario>();
   }
 
   ngOnInit() {
+    this.api.usuario().usuarioAtual().subscribe(usuario => this.usuarioAtual = usuario);
   }
 
   onAdicionarComentario(ngForm: NgForm) {
-    const {conteudo} = ngForm.form.value;
+    const onSuccess = (comentario: Comentario) => {
+      this.publicandoComentario = false;
 
-    // TODO: loader - algo para indicar que o comentário "está sendo adicionado"
-    // caso a request demore mais do que o esperado.
-    this.api.usuario().usuarioAtual().subscribe(usuario => {
-      const comentario = new Comentario();
-      comentario.tweet = this.tweet;
-      comentario.usuario = usuario;
-      comentario.conteudo = conteudo;
+      this.comentarioAdicionado.emit(comentario);
 
-      this.api.comentario().inserir(comentario).subscribe((c) => {
-        comentario.id = c.id;
+      this.toastrService.success(null, 'Comentário publicado!',  { timeOut: 2000 });
 
-        this.comentarioAdicionado.emit(comentario);
-      })
-    });
+      ngForm.reset();
+    };
 
-    // TODO: resetar apenas se o comentário foi adicionad?
-    ngForm.reset();
+    const onError = () => {
+      this.publicandoComentario = false;
+
+      this.toastrService.error(`Tente novamente dentro de alguns instantes.`,
+        'Não foi possível publicar o comentário',  { closeButton: true });
+    };
+
+    const comentario = new Comentario();
+    comentario.tweet = this.tweet;
+    comentario.usuario = this.usuarioAtual;
+    comentario.conteudo = ngForm.form.value.conteudo;
+
+    this.publicandoComentario = true;
+
+    this.api.comentario().inserir(comentario).subscribe(onSuccess, onError)
   }
 }
