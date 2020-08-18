@@ -23,4 +23,8 @@ export class TweetService {
   public inserir(tweet: Tweet): Observable<Tweet> {
     return this.http.post<Tweet>(`${environment.apiUrl}/tweet`, tweet);
   }
+
+  public remover(tweet: Tweet): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/tweet/${tweet.id}`,);
+  }
 }

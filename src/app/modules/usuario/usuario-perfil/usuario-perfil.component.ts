@@ -19,16 +19,19 @@ export class UsuarioPerfilComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-        // TODO: validar
-        const id = Number(params.get('id'));
+      // TODO: validar
+      const id = Number(params.get('id'));
 
-        this.api.usuario()
-          .consultar(id).subscribe(usuario => this.usuario = usuario);
+      this.api.usuario()
+        .consultar(id).subscribe(usuario => this.usuario = usuario);
 
-        this.api.tweet()
-          .pesquisar(<TweetSeletor>{ idUsuario: id, orderField: 'data', orderType: 'desc' })
-          .subscribe(tweets => this.tweets = tweets);
-      });
+      this.api.tweet()
+        .pesquisar(<TweetSeletor>{ idUsuario: id, orderField: 'data', orderType: 'desc' })
+        .subscribe(tweets => this.tweets = tweets);
+    });
   }
 
+  onTweetExcluido(tweet: Tweet) {
+    this.tweets = this.tweets.filter(t => t.id !== tweet.id);
+  }
 }

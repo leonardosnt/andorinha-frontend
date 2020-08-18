@@ -20,18 +20,49 @@ export class TweetCardComponent implements OnInit {
   inputComentarAtivo: boolean = false;
 
   @Output()
-  comentarioAdicionado: EventEmitter<Comentario>;
+  comentarioAdicionado: EventEmitter<Comentario> = new EventEmitter<Comentario>();
+
+  @Output()
+  tweetExcluido: EventEmitter<void>  = new EventEmitter<void>();
 
   usuarioAtual: Usuario;
 
   publicandoComentario: Boolean;
+  excluindoTweet: Boolean;
 
-  constructor(private api: ApiService, private toastrService: ToastrService) {
-    this.comentarioAdicionado = new EventEmitter<Comentario>();
-  }
+  confirmaExcluirTweet: Boolean;
+
+  constructor(private api: ApiService, private toastrService: ToastrService) {}
 
   ngOnInit() {
     this.api.usuario().usuarioAtual().subscribe(usuario => this.usuarioAtual = usuario);
+  }
+
+  onDeletarTweet() {
+    if (!this.confirmaExcluirTweet) {
+      this.confirmaExcluirTweet = true;
+      return;
+    }
+
+    const onSuccess = () => {
+      this.excluindoTweet = false;
+
+      this.tweetExcluido.emit();
+
+      this.toastrService.success(null, 'Tweet removido!',  { timeOut: 2000 });
+    };
+
+    const onError = () => {
+      this.excluindoTweet = false;
+
+      this.toastrService.error('Tente novamente dentro de alguns instantes.',
+        'Não foi possível deletar o tweet',  { closeButton: true });
+    };
+
+    this.confirmaExcluirTweet = false;
+    this.excluindoTweet = true;
+
+    this.api.tweet().remover(this.tweet).subscribe(onSuccess, onError)
   }
 
   onAdicionarComentario(ngForm: NgForm) {

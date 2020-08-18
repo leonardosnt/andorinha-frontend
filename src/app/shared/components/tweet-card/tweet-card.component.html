@@ -24,26 +24,35 @@
 
     <hr>
 
-    <div class="mt-4">
-      <!-- TODO: Por agora, o input de comentar só é o mostrado na página de tweet. -->
-      <!-- TODO: só mostrar caso o usuário esteja autenticado. -->
-      <form *ngIf="this.inputComentarAtivo; else comentar" #form="ngForm" (ngSubmit)="this.onAdicionarComentario(form)">
-        <textarea class="form-control" name="conteudo" placeholder="Escreva seu comentário" rows="4" ngModel>
+    <div>
+      <a *ngIf="!this.inputComentarAtivo" [routerLink]="['/tweet/', tweet.id]"><i class="fa fa-comment mr-2"></i>Comentar</a>
 
-        </textarea>
-
-        <div class="mt-3 float-right">
-          <button type="submit" class="btn btn-primary" [disabled]="this.publicandoComentario">
-            {{this.publicandoComentario ? 'Publicando...' : 'Comentar'}}
-          </button>
-        </div>
-      </form>
-
-      <ng-template #comentar>
-        <label class="m-0">
-          <a [routerLink]="['/tweet/', tweet.id]"><i class="fa fa-comment"></i>&nbsp;&nbsp;Comentar</a>
-        </label>
-      </ng-template>
+      <div class="float-sm-right" *ngIf="this.usuarioAtual && this.usuarioAtual.id === this.tweet.usuario.id">
+        <button [disabled]="this.excluindoTweet" (click)="this.onDeletarTweet()" class="btn p-0 txt-primary" title="Excluir tweet">
+          <i class="fa fa-{{this.confirmaExcluirTweet ? 'exclamation-triangle' : 'trash'}}" aria-hidden="true"></i>
+          {{this.confirmaExcluirTweet ? 'Confirmar exclusão' : ''}}
+          {{this.excluindoTweet ? 'Excluindo...' : ''}}
+        </button>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- TODO: Por agora, o input de comentar só é o mostrado na página de tweet. -->
+<!-- TODO: mover para tweet-detalhe? -->
+<div class="card" *ngIf="this.inputComentarAtivo">
+  <div class="col-md-12 p-30">
+    <!-- TODO: só mostrar caso o usuário esteja autenticado. -->
+    <form #form="ngForm" (ngSubmit)="this.onAdicionarComentario(form)">
+      <textarea class="form-control" name="conteudo" placeholder="Escreva seu comentário" rows="4" ngModel>
+
+      </textarea>
+
+      <div class="mt-3 float-right">
+        <button type="submit" class="btn btn-primary" [disabled]="this.publicandoComentario">
+          {{this.publicandoComentario ? 'Publicando...' : 'Comentar'}}
+        </button>
+      </div>
+    </form>
   </div>
 </div>

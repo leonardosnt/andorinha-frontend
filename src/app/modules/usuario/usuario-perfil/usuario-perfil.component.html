@@ -40,7 +40,7 @@
       </div>
 
       <div class="col-sm-12">
-        <tweet-card *ngFor="let tweet of tweets" [tweet]="tweet"></tweet-card>
+        <tweet-card *ngFor="let tweet of tweets" [tweet]="tweet" (tweetExcluido)="this.onTweetExcluido(tweet)"></tweet-card>
       </div>
 
     </div>

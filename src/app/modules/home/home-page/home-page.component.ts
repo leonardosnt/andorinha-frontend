@@ -42,6 +42,10 @@ export class HomePageComponent implements OnInit {
     this.api.usuario().usuarioAtual().subscribe(usuario => this.usuarioAtual = usuario);
   }
 
+  onTweetExcluido(tweet: Tweet) {
+    this.tweetsRecentes = this.tweetsRecentes.filter(t => t.id !== tweet.id);
+  }
+
   onAdicionarTweet(ngForm: NgForm) {
     const onSuccess = (tweet: Tweet) => {
       // Por algum motivo o onComplete não está sendo invocado, então tive que atualizar
