@@ -13,7 +13,7 @@
 
       <div class="col-sm-4 align-self-center">
         <div class="float-sm-right">
-          <small>{{tweet.data | date:'fullDate'}}</small>
+          <small>{{tweet.data | date: 'dd/MM/yyyy HH:mm'}}</small>
         </div>
       </div>
       <a [routerLink]="['/tweet', tweet.id]" class="tweet-id" title="Ir à pagina do tweet">#{{tweet.id}}</a>
