@@ -28,7 +28,7 @@
       <a *ngIf="!this.inputComentarAtivo" [routerLink]="['/tweet/', tweet.id]"><i class="fa fa-comment mr-2"></i>Comentar</a>
 
       <div class="float-sm-right" *ngIf="this.usuarioAtual && this.usuarioAtual.id === this.tweet.usuario.id">
-        <button [disabled]="this.excluindoTweet" (click)="this.onDeletarTweet()" class="btn p-0 txt-primary" title="Excluir tweet">
+        <button [disabled]="this.excluindoTweet" (click)="this.onExcluirTweet()" class="btn p-0 txt-primary" title="Excluir tweet">
           <i class="fa fa-{{this.confirmaExcluirTweet ? 'exclamation-triangle' : 'trash'}}" aria-hidden="true"></i>
           {{this.confirmaExcluirTweet ? 'Confirmar exclusão' : ''}}
           {{this.excluindoTweet ? 'Excluindo...' : ''}}

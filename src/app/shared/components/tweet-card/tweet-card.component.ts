@@ -38,7 +38,7 @@ export class TweetCardComponent implements OnInit {
     this.api.usuario().usuarioAtual().subscribe(usuario => this.usuarioAtual = usuario);
   }
 
-  onDeletarTweet() {
+  onExcluirTweet() {
     if (!this.confirmaExcluirTweet) {
       this.confirmaExcluirTweet = true;
       return;
@@ -56,7 +56,7 @@ export class TweetCardComponent implements OnInit {
       this.excluindoTweet = false;
 
       this.toastrService.error('Tente novamente dentro de alguns instantes.',
-        'Não foi possível deletar o tweet',  { closeButton: true });
+        'Não foi possível excluir o tweet',  { closeButton: true });
     };
 
     this.confirmaExcluirTweet = false;
