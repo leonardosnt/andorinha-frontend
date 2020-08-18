@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/shared/services/api.service';
 import { Tweet } from 'src/app/shared/models/tweet';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { TweetSeletor } from 'src/app/shared/models/seletor/tweet.seletor';
 
 @Component({
   selector: 'app-home-page',
@@ -17,9 +18,27 @@ export class HomePageComponent implements OnInit {
 
   publicandoTweet: Boolean;
 
+  tweetsRecentes: Tweet[];
+
   constructor(private api: ApiService, private toastrService: ToastrService, private router: Router) { }
 
   ngOnInit() {
+    this.buscarUsuario();
+    this.buscarTweetsRecentes();
+  }
+
+  buscarTweetsRecentes() {
+    const seletor = <TweetSeletor> {
+      orderField: 'data',
+      orderType: 'desc',
+      limite: 20,
+      pagina: 1
+    };
+
+    this.api.tweet().pesquisar(seletor).subscribe(tweets => this.tweetsRecentes = tweets);
+  }
+
+  buscarUsuario() {
     this.api.usuario().usuarioAtual().subscribe(usuario => this.usuarioAtual = usuario);
   }
 
@@ -37,6 +56,8 @@ export class HomePageComponent implements OnInit {
         });
 
       ngForm.reset();
+
+      this.buscarTweetsRecentes();
     };
 
     const onError = () => {

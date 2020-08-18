@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <div class="page-header">
     <div class="row">
-      <div class="col-lg-6">
-        <h4>Bem vindo, Leonardo!</h4>
+      <div class="col-lg-12">
+          <h5 class="m-b-0">Bem vindo, Leonardo!</h5>
       </div>
     </div>
   </div>
@@ -23,6 +23,20 @@
           </div>
         </form>
       </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 m-b-30">
+      <h5 class="m-b-0">Tweets Recentes</h5>
+    </div>
+    <!-- TODO: alguns estilos do tweet-card dependem da classe user-profile... Mudar isso... -->
+    <div class="col-sm-12 user-profile">
+      <span *ngIf="this.tweetsRecentes && this.tweetsRecentes.length === 0">
+        Nenhum tweet encontrado!
+      </span>
+
+      <tweet-card *ngFor="let tweet of this.tweetsRecentes" [tweet]="tweet"></tweet-card>
     </div>
   </div>
 </div>
