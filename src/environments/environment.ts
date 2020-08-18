@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost/andorinha-backend/api'
+  apiUrl: 'http://localhost:8080/andorinha-backend/api'
 };
 
 /*
